@@ -1,8 +1,8 @@
 package com.test.testreflection;
 
 import com.digicap.android.reflection.Reflection;
+import com.digicap.android.reflection.Reflection$SecurityLevel;
 import com.digicap.android.reflection.ReflectionListner;
-import com.digicap.android.reflection.Reflection.SecurityLevel;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -10,11 +10,12 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+
+
 public class MainActivity extends Activity
 {
-    private static final String LOG_TAG = "SecurityLevel";
-    private SecurityLevel mLevel;
-    private Reflection mReflection;
+    private static final String LOG_TAG = "ReflectionJar";
+
     
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -23,22 +24,50 @@ public class MainActivity extends Activity
         setContentView(R.layout.activity_main);
         
         
+        ///////////////////////////////////////////////////////////////////////
+        /// Reflection Library Sample Code
+        
+        // Test Cp Package Name
+        String test_pkg_name_1 = "com.digicap.android.test1";
+        
+        
         // 1. Get Reflection Instance
-        mReflection = Reflection.getInstance();
+        Reflection mReflection = Reflection.getInstance(this.getApplication());
+        
         
         // 2. Register Listener
         mReflection.RegisterDevice(new ReflectionListner() {
-            
+
             @Override
-            public void UpdateSecurityLevel(SecurityLevel level)
+            public void updateSecurityLevel(String pkg_name, Reflection$SecurityLevel level)
             {
-                Log.d(LOG_TAG, "UpdateSecurityLevel() is " + mLevel + ".");
+                Log.d(LOG_TAG, "RegisterDevice(). Package Name is " + pkg_name + ". Level is " + level);                
+            }
+        });
+
+        // 3. Add PackageName
+        mReflection.addAppPackage(test_pkg_name_1, new ReflectionListner() {
+
+            @Override
+            public void updateSecurityLevel(String pkg_name, Reflection$SecurityLevel level)
+            {
+                Log.d(LOG_TAG, "addAppPackage(). Package is " + pkg_name + ". SecurityLevel is " + level);   
             }
         });
         
-        // 3. Get SecurityLevel
-        mLevel = mReflection.GetSecurityLevel();
-        Log.d(LOG_TAG, "SecurityLevel is " + mLevel);
+        
+        // 4. Get SecurityLevel of Companion App 
+        Reflection$SecurityLevel companionLevel = mReflection.getSecurityLevel();
+        Log.d(LOG_TAG, "Companion SecurityLevel is " + companionLevel);
+        
+        
+        // 5. Get SecurityLevel of CP App
+        Reflection$SecurityLevel cpLevel = mReflection.getSecurityLevel(test_pkg_name_1);
+        Log.d(LOG_TAG, "CP SecurityLevel is " + cpLevel);
+        
+        ///////////////////////////////////////////////////////////////////////
+        
+        
     }
     
     @Override
