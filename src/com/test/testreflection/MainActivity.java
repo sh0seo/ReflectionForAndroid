@@ -1,14 +1,14 @@
 package com.test.testreflection;
 
-import com.digicap.android.reflection.Reflection;
-import com.digicap.android.reflection.Reflection$SecurityLevel;
-import com.digicap.android.reflection.ReflectionListner;
-
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.digicap.android.reflection.Reflection;
+import com.digicap.android.reflection.Reflection$SecurityLevel;
+import com.digicap.android.reflection.ReflectionListener;
 
 
 
@@ -27,6 +27,10 @@ public class MainActivity extends Activity
         ///////////////////////////////////////////////////////////////////////
         /// Reflection Library Sample Code
         
+        
+        // enum SecurityLevel {blank, red, orange, yellow, black, green};
+        
+        
         // Test Cp Package Name
         String test_pkg_name_1 = "com.digicap.android.test1";
         
@@ -36,7 +40,7 @@ public class MainActivity extends Activity
         
         
         // 2. Register Listener
-        mReflection.RegisterDevice(new ReflectionListner() {
+        mReflection.registerDevice(new ReflectionListener() {
 
             @Override
             public void updateSecurityLevel(String pkg_name, Reflection$SecurityLevel level)
@@ -46,7 +50,7 @@ public class MainActivity extends Activity
         });
 
         // 3. Add PackageName
-        mReflection.addAppPackage(test_pkg_name_1, new ReflectionListner() {
+        mReflection.addAppPackage(test_pkg_name_1, new ReflectionListener() {
 
             @Override
             public void updateSecurityLevel(String pkg_name, Reflection$SecurityLevel level)
