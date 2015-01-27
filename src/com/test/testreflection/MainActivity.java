@@ -32,7 +32,7 @@ public class MainActivity extends Activity
         
         
         // Test Cp Package Name
-        String test_pkg_name_1 = "com.digicap.android.test1";
+        String test_pkg_name_1 = "com.digicap.android.test30";
         
         
         // 1. Get Reflection Instance
@@ -45,7 +45,7 @@ public class MainActivity extends Activity
             @Override
             public void updateSecurityLevel(String pkg_name, SecurityLevel level)
             {
-                Log.d(LOG_TAG, "RegisterDevice(). Package Name is " + pkg_name + ". Level is " + level); 
+                Log.d(LOG_TAG, "RegisterDevice(). Package Name is " + pkg_name + ". Level is " + level);                
             }
         });
 
@@ -55,7 +55,7 @@ public class MainActivity extends Activity
             @Override
             public void updateSecurityLevel(String pkg_name, SecurityLevel level)
             {
-                Log.d(LOG_TAG, "addAppPackage(). Package is " + pkg_name + ". SecurityLevel is " + level);                 
+                Log.d(LOG_TAG, "addAppPackage(). Package is " + pkg_name + ". SecurityLevel is " + level);   
             }
         });
         
