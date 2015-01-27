@@ -7,7 +7,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.digicap.android.reflection.Reflection;
-import com.digicap.android.reflection.Reflection$SecurityLevel;
+import com.digicap.android.reflection.Reflection.SecurityLevel;
 import com.digicap.android.reflection.ReflectionListener;
 
 
@@ -43,9 +43,9 @@ public class MainActivity extends Activity
         mReflection.registerDevice(new ReflectionListener() {
 
             @Override
-            public void updateSecurityLevel(String pkg_name, Reflection$SecurityLevel level)
+            public void updateSecurityLevel(String pkg_name, SecurityLevel level)
             {
-                Log.d(LOG_TAG, "RegisterDevice(). Package Name is " + pkg_name + ". Level is " + level);                
+                Log.d(LOG_TAG, "RegisterDevice(). Package Name is " + pkg_name + ". Level is " + level); 
             }
         });
 
@@ -53,20 +53,20 @@ public class MainActivity extends Activity
         mReflection.addAppPackage(test_pkg_name_1, new ReflectionListener() {
 
             @Override
-            public void updateSecurityLevel(String pkg_name, Reflection$SecurityLevel level)
+            public void updateSecurityLevel(String pkg_name, SecurityLevel level)
             {
-                Log.d(LOG_TAG, "addAppPackage(). Package is " + pkg_name + ". SecurityLevel is " + level);   
+                Log.d(LOG_TAG, "addAppPackage(). Package is " + pkg_name + ". SecurityLevel is " + level);                 
             }
         });
         
         
         // 4. Get SecurityLevel of Companion App 
-        Reflection$SecurityLevel companionLevel = mReflection.getSecurityLevel();
+        SecurityLevel companionLevel = mReflection.getSecurityLevel();
         Log.d(LOG_TAG, "Companion SecurityLevel is " + companionLevel);
         
         
         // 5. Get SecurityLevel of CP App
-        Reflection$SecurityLevel cpLevel = mReflection.getSecurityLevel(test_pkg_name_1);
+        SecurityLevel cpLevel = mReflection.getSecurityLevel(test_pkg_name_1);
         Log.d(LOG_TAG, "CP SecurityLevel is " + cpLevel);
         
         ///////////////////////////////////////////////////////////////////////
