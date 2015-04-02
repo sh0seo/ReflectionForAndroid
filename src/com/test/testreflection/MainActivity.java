@@ -12,8 +12,9 @@ import android.util.Log;
 
 import com.digicap.android.reflection.Reflection;
 import com.digicap.android.reflection.Reflection.SecurityLevel;
+import com.digicap.android.reflection.listener.CpKeyForHeadUnitListener;
 import com.digicap.android.reflection.listener.CpKeyListener;
-import com.digicap.android.reflection.ReflectionListener;
+import com.digicap.android.reflection.listener.ReflectionListener;
 
 
 
@@ -59,7 +60,7 @@ public class MainActivity extends Activity implements ReflectionListener {
         
         
         // 2. Register Listener
-        mReflection.registerDevice(this, mCertData, mKeyData);
+        mReflection.registerDevice(mCertData, mKeyData, this);
 
 
         // 3. Add PackageName
@@ -89,6 +90,23 @@ public class MainActivity extends Activity implements ReflectionListener {
             }
         });
         ///////////////////////////////////////////////////////////////////////
+        
+        
+        
+        
+        // /////////////////////////////////////////////////////////////////////        
+        // Get CPKey for HeadUnit
+        byte[] signData = "6eQvCi1aQoXtTqPoZsaW18TzUCT2JAD0HYBPTNm9gmwP6Ky6ZmKbbr0oodM7W09ezzMq5jmN2Z6Q98sKHepmDVNhZm31JXUlLebb8m7ZiU5o+lb1b75kft/jY+Zo5mTU9aglBUmBsoIhKD35Ny3dqs5OcizrL0AeCswkKY6by2VyfnzH4dJS/H0769B4prMadmgwvFcUUlciD8Po0aFKtMzhNw/L09xlUlMgVMePPnmfBs0DzWcrdrB96YVWUhlnpbmpcGzpcuE3YZsNKXAkapzhwLZCGNhA4KHT6Tw2MkDI6tBIDyTesJKHMsSPD5Ozc0af0b71QMrhMkHSZLpe5g==".getBytes();
+        String macAddress = "0019B8015F7D";
+        Reflection.getCpKeyforHeadUnit(getApplication(), macAddress, signData, new CpKeyForHeadUnitListener() {
+            
+            @Override
+            public void resultInfo(String resultCode, String descrition, byte[] cpKeyData, byte[] responseData) {
+                // Respnose Body
+                // String body = new String(responseData);
+            }
+        });
+        // /////////////////////////////////////////////////////////////////////
     }
 
 
