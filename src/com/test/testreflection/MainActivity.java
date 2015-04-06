@@ -120,4 +120,20 @@ public class MainActivity extends Activity implements ReflectionListener {
     public void updateSecurityLevel(String pkg_name, SecurityLevel level) {
         Log.d(LOG_TAG, "updateSecurityLevel(). Package Name is " + pkg_name + ". Level is " + level);
     }
+
+
+    @Override
+    public void resultAuthentication(String resultCode, String description) {
+        
+        int code = Integer.valueOf(resultCode);
+        switch (code) {
+            case 400:   // Success
+                Log.d(LOG_TAG, "ResultCode is " + resultCode + ". Description is " + description);
+                break;
+            
+            default:    // Fail
+                Log.d(LOG_TAG, "ResultCode is " + resultCode + ". Description is " + description);
+                break;
+        }
+    }
 }
